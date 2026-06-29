@@ -8,6 +8,8 @@
 
 本包没有打包本地 Qwen 基座模型，避免提交体积过大。评委如需运行真实 LLM 策略，请按下文下载基座模型到本地。
 
+![dashboard](https://github.com/sjtu-chan-joey/OPC_demo/blob/main/dashboard.png)
+
 <div align="center">
 
 https://github.com/sjtu-chan-joey/OPC_demo/blob/main/demo.mp4
