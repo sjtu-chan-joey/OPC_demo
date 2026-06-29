@@ -1,0 +1,11 @@
+# Training with LLaMA-Factory/Hugging Face datasets requires Python 3.10-3.12.
+# Python 3.14 currently breaks dill during dataset fingerprinting.
+pandas>=2.0
+numpy>=1.26
+PyYAML>=6.0
+matplotlib>=3.8
+pybamm>=25.0; python_version < "3.13"
+torch
+transformers
+peft
+safetensors

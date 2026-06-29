@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>电池充放电实时闭环过程</title>
+    <link rel="stylesheet" href="/styles.css">
+  </head>
+  <body>
+    <main class="shell">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">Battery LLM Control</p>
+          <h1>电池充放电实时闭环过程</h1>
+        </div>
+        <div class="status-pill" id="runStatus">待启动</div>
+      </header>
+
+      <section class="control-band">
+        <label>初始 SOC
+          <input id="initial_soc" type="range" min="0.08" max="0.92" step="0.01" value="0.35">
+          <span id="initial_soc_value">0.35</span>
+        </label>
+        <label>初始 SOH
+          <input id="initial_soh" type="range" min="0.82" max="1" step="0.005" value="0.94">
+          <span id="initial_soh_value">0.940</span>
+        </label>
+        <label>环境温度
+          <input id="ambient_c" type="range" min="-10" max="50" step="1" value="35">
+          <span id="ambient_c_value">35 C</span>
+        </label>
+        <label>初始内阻
+          <input id="resistance_mohm" type="range" min="25" max="110" step="1" value="58">
+          <span id="resistance_mohm_value">58 mΩ</span>
+        </label>
+        <label>目标 Cycle
+          <input id="target_cycles" type="number" min="0.2" max="80" step="0.5" value="1">
+        </label>
+        <label>决策间隔 Cycle
+          <input id="decision_cycle_interval" type="number" min="0.01" max="10" step="0.05" value="0.1">
+        </label>
+        <label>播放速度
+          <input id="speed" type="range" min="10" max="180" step="5" value="60">
+          <span id="speed_value">60x</span>
+        </label>
+        <button id="startBtn" class="primary">启动</button>
+        <button id="pauseBtn" class="secondary">暂停</button>
+        <button id="resetBtn" class="secondary">复位</button>
+      </section>
+
+      <section class="metric-grid" id="metricGrid"></section>
+
+      <section class="dashboard-grid">
+        <div class="panel wide">
+          <div class="panel-head">
+            <h2>容量与 SOH 实时变化</h2>
+            <div class="legend" id="capacityLegend"></div>
+          </div>
+          <canvas id="capacityChart" height="286"></canvas>
+        </div>
+        <div class="panel">
+          <div class="panel-head">
+            <h2>SOC 轨迹</h2>
+          </div>
+          <canvas id="socChart" height="286"></canvas>
+        </div>
+        <div class="panel">
+          <div class="panel-head">
+            <h2>温度与电压</h2>
+          </div>
+          <canvas id="thermalChart" height="286"></canvas>
+        </div>
+      </section>
+
+      <section class="live-grid">
+        <div class="panel battery-panel">
+          <div class="battery-stage">
+            <div class="battery">
+              <div class="battery-fill" id="batteryFill"></div>
+              <div class="battery-core">
+                <strong id="batterySoc">--%</strong>
+                <span id="batteryMode">rest</span>
+              </div>
+            </div>
+            <div class="pulse" id="pulse"></div>
+          </div>
+          <div class="state-list" id="stateList"></div>
+        </div>
+        <div class="panel">
+          <div class="panel-head">
+            <h2>LLM 实时策略调整</h2>
+            <span class="step-chip" id="decisionStep">--</span>
+          </div>
+          <div class="decision-card" id="decisionCard"></div>
+          <div class="policy-table" id="policyTable"></div>
+        </div>
+      </section>
+    </main>
+    <script src="/app.js"></script>
+  </body>
+</html>
